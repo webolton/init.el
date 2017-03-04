@@ -10,7 +10,7 @@
 (package-initialize)
 
 ;; NOT SURE ABOUT THE FOLLOWING AT THIS POINT
-;;(require 'better-defaults)
+
 ;; THEMES
 ;; (add-to-list 'load-path "~/.emacs.d/tomorrow-theme")
 ;;(require 'tomorrow-night-bright-theme)
@@ -27,6 +27,8 @@
 (add-to-list 'load-path "~/.emacs.d/ws-trim")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
+
+(global-git-gutter+-mode)
 
 ;; WHITESPACE
 (require 'ws-trim)
@@ -63,11 +65,6 @@
  '(org-link ((t (:foreground "#c397d8"))))
  '(org-todo ((t (:foreground "#d54e53" :weight bold))))
  '(whitespace-space ((t (:foreground "#75715E" :slant italic :weight light :width normal)))))
-
-(require 'git-gutter)
-(global-git-gutter-mode t)
-;; If you enable git-gutter-mode for some modes
-(add-hook 'ruby-mode-hook 'git-gutter-mode)
 
 
 ;; SAVE CURRENT DESKTOP
@@ -188,3 +185,4 @@
 (define-key input-decode-map "\e[1;10B" [S-M-down])
 (define-key input-decode-map "\e[1;10C" [S-M-right])
 (define-key input-decode-map "\e[1;10D" [S-M-left])
+(put 'set-goal-column 'disabled nil)

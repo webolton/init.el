@@ -3,21 +3,27 @@
 (setq user-mail-address "william.ellet@gmail.com")
 ;; PACKAGE MANAGEMENT
 (require 'package)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
 
-;; NOT SURE ABOUT THE FOLLOWING AT THIS POINT
+(require 'js-comint)
+(setq inferior-js-program-command "/path/to/executable &lt;args&gt;")
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-x C-e") 'js-send-last-sexp)
+            (local-set-key (kbd "C-M-x") 'js-send-last-sexp-and-go)
+            (local-set-key (kbd "C-c b") 'js-send-buffer)
+            (local-set-key (kbd "C-c C-b") 'js-send-buffer-and-go)
+            (local-set-key (kbd "C-c l") 'js-load-file-and-go)))
 
 ;; THEMES
-;; (add-to-list 'load-path "~/.emacs.d/tomorrow-theme")
-;;(require 'tomorrow-night-bright-theme)
+ ;; (add-to-list 'load-path "~/.emacs.d/tomorrow-theme")
+ ;; (require 'tomorrow-night-bright-theme)
 
 (load-theme 'monokai t)
-;;(add-to-list 'default-frame-alist '(font . "Monospace Mono-14" ))
-;;(set-face-attribute 'default t :font "Monospace Mono-15" )
 (set-face-attribute 'default nil
                     :height 150
                     :weight 'normal
@@ -50,6 +56,7 @@
           )))
 
 (custom-set-faces
+ ;; ORG MODE STYLES
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -91,14 +98,15 @@
 ;; RAILS DEVELOPMENT
 ;;(require 'flymake-ruby)
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-;;(setq ruby-deep-indent-paren nil)
 ;; RAILS CONSOLE SHORTCUT
 ;;(global-set-key (kbd "C-c i r b") 'inf-ruby)
 
 ;;(require 'rvm)
 ;;(rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 ;;(global-set-key (kbd "C-c r m") 'rvm-activate-corresponding-ruby)
+(setq ruby-deep-indent-paren nil)
 (setq ruby-indent-level 2)
+(setq ruby-insert-encoding-magic-comment nil)
 
 (require 'yaml-mode)
 
